@@ -1,11 +1,13 @@
 import './App.css';
-import AccountList from './Components/AccountsList';
+import { BrowserRouter } from "react-router-dom";
+import Router from "./Router/Router"
 
 function App() {
   return (
     <div>
-      <h1>Account App</h1>
-      <AccountList />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </div>
   );
 }
