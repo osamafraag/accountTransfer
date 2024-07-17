@@ -1,7 +1,7 @@
 import { BaseUrl } from "./Config";
 
-export const Accounts = () => {
-    return BaseUrl.get('accounts/')
+export const Accounts = (page,search) => {
+    return BaseUrl.get(`accounts?page=${page}&search=${search}`)
 }
 
 export const GetAccount = (id) => {

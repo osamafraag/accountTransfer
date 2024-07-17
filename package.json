@@ -1,5 +1,8 @@
 {
   "proxy": "http://localhost:8000",
+  "devServer": {
+  "allowedHosts": ["localhost"]
+   }  ,
   "name": "account-transfer",
   "version": "0.1.0",
   "private": true,
