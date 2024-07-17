@@ -14,6 +14,7 @@ const AccountList = ({ accounts, meta, loading, fetchAccounts }) => {
       .then(response => {
         console.log(response);
         setShowModal(false);
+        fetchAccounts(1,'');
       })
       .catch(error => {
         console.error(error);
@@ -25,7 +26,7 @@ const AccountList = ({ accounts, meta, loading, fetchAccounts }) => {
       .then(response => {
         console.log(response);
         setShowModal(false);
-        fetchAccounts();
+        fetchAccounts(1,'');
       })
       .catch(error => {
         console.error(error);
