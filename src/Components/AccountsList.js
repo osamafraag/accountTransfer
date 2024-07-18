@@ -79,11 +79,18 @@ const AccountList = ({ accounts, meta, loading, fetchAccounts }) => {
       {loading ? (
         <p>Loading...</p>
       ) : (
+        meta? (
         <div>
           <button onClick={() => handlePage(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
-          <span> Page {currentPage} of {meta.totalPages} </span>
-          <button onClick={() => handlePage(currentPage + 1)} disabled={currentPage === meta.totalPages}>Next</button>
+          
+            <span>Page {currentPage} of {meta.totalPages}</span>
+            <button onClick={() => handlePage(currentPage + 1)} disabled={currentPage === meta.totalPages}>
+             Next
+             </button>
         </div>
+      ) : (
+        <></>
+       )
       )}
        <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>

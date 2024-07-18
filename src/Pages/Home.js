@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AccountList from '../Components/AccountsList';
 import ImportAccounts from '../Components/ImportAccounts';
+import TransferFund from '../Components/Transfer';
 import { Accounts } from '../APIs/AccountsAPIs';
 
 function Home() {
@@ -32,6 +33,7 @@ function Home() {
       <h1>Account App</h1>
       <AccountList accounts={accounts} meta={meta} loading={loading} fetchAccounts={fetchAccounts}/>
       <ImportAccounts fetchAccounts={fetchAccounts}/>
+      <TransferFund/>
     </div>
   );
 }

@@ -1,7 +1,19 @@
 import { BaseUrl } from "./Config";
 
 export const Accounts = (page,search) => {
-    return BaseUrl.get(`accounts?page=${page}&search=${search}`)
+    // return BaseUrl.get(`accounts?page=${page}&search=${search}`)
+    let url = 'accounts/';
+    const params = {};
+
+    if (page !== null) {
+      params.page = page;
+    }
+
+    if (search !== null) {
+      params.search = search;
+    }
+
+    return BaseUrl.get(url, { params });
 }
 
 export const GetAccount = (id) => {
