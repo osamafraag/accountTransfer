@@ -1,37 +1,13 @@
 import React, { useState } from 'react';
-import { UpdateAccount, DeleteAccount } from '../APIs/AccountsAPIs';
-import { Modal, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import AccountData from './AccountData';
 
 const AccountList = ({ accounts, meta, loading, fetchAccounts }) => {
   
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedId, setSelectedId] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [selectedAccount, setSelectedAccount] = useState(null);
-
-  const handleUpdateAccount = (account) => {
-    UpdateAccount(account.accountId,account)
-      .then(response => {
-        console.log(response);
-        setShowModal(false);
-        fetchAccounts(1,'');
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-  const handleDeleteAccount = (accountId) => {
-    DeleteAccount(accountId)
-      .then(response => {
-        console.log(response);
-        setShowModal(false);
-        fetchAccounts(1,'');
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -43,12 +19,10 @@ const AccountList = ({ accounts, meta, loading, fetchAccounts }) => {
     fetchAccounts(page, searchQuery);
   };
 
-  const handleShowModal = (account) => {
-    setSelectedAccount(account);
+  const handleView = (accountId) => {
     setShowModal(true);
+    setSelectedId(accountId);
   };
-
-  
 
   return (
     <div>
@@ -69,8 +43,7 @@ const AccountList = ({ accounts, meta, loading, fetchAccounts }) => {
               <td>{account.name}</td>
               <td>{account.balance}</td>
               <td>
-                <Button variant="primary" onClick={() => handleShowModal(account)}>View</Button>
-                <Button variant="danger" onClick={() => handleDeleteAccount(account.accountId)}>Delete</Button>
+                <Button variant="primary" onClick={() => handleView(account.accountId)}>View</Button>
               </td>
             </tr>
           ))}
@@ -92,21 +65,7 @@ const AccountList = ({ accounts, meta, loading, fetchAccounts }) => {
         <></>
        )
       )}
-       <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Account Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>ID: {selectedAccount && selectedAccount.accountId}</p>
-          <p>Name: {selectedAccount && selectedAccount.name}</p>
-          <p>Balance: {selectedAccount && selectedAccount.balance}</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={() => handleUpdateAccount(selectedAccount)}>Update</Button>
-          <Button variant="danger" onClick={() => handleDeleteAccount(selectedAccount.accountId)}>Delete</Button>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>Close</Button>
-        </Modal.Footer>
-      </Modal>
+      <AccountData fetchAccounts={fetchAccounts} setShowModal={setShowModal} showModal={showModal} accountId = {selectedId}/>
     </div>
   );
 };
